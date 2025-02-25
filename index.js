@@ -34,13 +34,20 @@ function renderGrid(dimension) {
 }
 
 function cellClickHandler(row, col) {
-    if (lastMove === ZERO) {
-        renderSymbolInCell(CROSS, row, col);
-        lastMove = CROSS;
-    } else {
-        renderSymbolInCell(ZERO, row, col);
-        lastMove = ZERO;
+    if (MAP[row][col] !== EMPTY){
+        return;
     }
+
+    let player;
+    if (lastMove === ZERO) {
+        player = CROSS;
+    } else {
+        player = ZERO;
+    }
+
+    renderSymbolInCell(player, row, col);
+    MAP[row][col] = player;
+    lastMove = player;
     console.log(`Clicked on cell: ${row}, ${col}`);
 
 
