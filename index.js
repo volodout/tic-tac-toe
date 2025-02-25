@@ -6,6 +6,9 @@ const MAP = [
     [EMPTY, EMPTY, EMPTY],
     [EMPTY, EMPTY, EMPTY]
 ];
+
+let lastMove = ZERO
+
 const container = document.getElementById('fieldWrapper');
 
 startGame();
@@ -31,7 +34,13 @@ function renderGrid(dimension) {
 }
 
 function cellClickHandler(row, col) {
-    // Пиши код тут
+    if (lastMove === ZERO) {
+        renderSymbolInCell(CROSS, row, col);
+        lastMove = CROSS;
+    } else {
+        renderSymbolInCell(ZERO, row, col);
+        lastMove = ZERO;
+    }
     console.log(`Clicked on cell: ${row}, ${col}`);
 
 
