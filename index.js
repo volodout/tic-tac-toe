@@ -42,7 +42,7 @@ function cellClickHandler(row, col) {
         lastMove = ZERO;
     }
     console.log(`Clicked on cell: ${row}, ${col}`);
-
+    checkWinner()
 
     /* Пользоваться методом для размещения символа в клетке так:
         renderSymbolInCell(ZERO, row, col);
@@ -51,20 +51,21 @@ function cellClickHandler(row, col) {
 
 function checkWinner() {
     for (let i = 0; i < MAP.length; i++) {
-        let temp;
-        for (let j = 0; j < MAP[i].length - 1; j++) {
-            if (MAP[i][j] === MAP[i][j + 1] && MAP[i][j] !== EMPTY)
-                temp = MAP[i][j];
-            else {
-                temp = undefined
+        let temp = MAP[i][0];
+        let isWinner = true;
+
+        for (let j = 1; j < MAP[i].length; j++) {
+            if (MAP[i][j] !== temp || temp === EMPTY) {
+                isWinner = false;
                 break;
             }
         }
-        if (temp !== undefined) {
+
+        if (isWinner) {
             winner = temp;
-            let res = []
+            let res = [];
             for (let j = 0; j < MAP[i].length; j++) {
-                res.push([i, j])
+                res.push([i, j]);
             }
             drawCell(res);
             return;
@@ -72,56 +73,63 @@ function checkWinner() {
     }
 
     for (let i = 0; i < MAP.length; i++) {
-        let temp;
-        for (let j = 0; j < MAP[i].length - 1; j++) {
-            if (MAP[j][i] === MAP[j][1 + 1] && MAP[j][i] !== EMPTY)
-                temp = MAP[j][i];
-            else {
-                temp = undefined
+        let temp = MAP[0][i];
+        let isWinner = true;
+
+        for (let j = 1; j < MAP.length; j++) {
+            if (MAP[j][i] !== temp || temp === EMPTY) {
+                isWinner = false;
                 break;
             }
         }
-        if (temp !== undefined) {
+
+        if (isWinner) {
             winner = temp;
-            let res = []
-            for (let j = 0; j < MAP[i].length; j++) {
-                res.push([j, i])
+            let res = [];
+            for (let j = 0; j < MAP.length; j++) {
+                res.push([j, i]);
             }
             drawCell(res);
+            return;
         }
-        return;
     }
-    let res = []
-    for (let i = 0; i < MAP.length; i++) {
-        if (MAP[i][i] === MAP[i][1 + 1] && MAP[i][i] !== EMPTY) {
-            winner = MAP[i][i];
-            res.push([i, i])
-        } else {
-            winner = undefined;
+
+    let temp = MAP[0][0];
+    let isWinner = true;
+    let res = [];
+
+    for (let i = 1; i < MAP.length; i++) {
+        if (MAP[i][i] !== temp || temp === EMPTY) {
+            isWinner = false;
             break;
         }
+        res.push([i, i]);
     }
-    if (winner !== undefined) {
+
+    if (isWinner) {
+        winner = temp;
         drawCell(res);
         return;
     }
-    res = []
-    for (let j = 0; i < MAP.length; i++) {
-        let i = MAP.length - j - 1;
-        if (MAP[i][i] === MAP[i][1 + 1] && MAP[i][i] !== EMPTY) {
-            res.push([i, i])
-            winner = MAP[i][i];
-        } else {
-            winner = undefined;
+
+    temp = MAP[0][MAP.length - 1];
+    isWinner = true;
+    res = [];
+
+    for (let i = 1; i < MAP.length; i++) {
+        if (MAP[i][MAP.length - i - 1] !== temp || temp === EMPTY) {
+            isWinner = false;
             break;
         }
+        res.push([i, MAP.length - i - 1]);
     }
-    if (winner !== undefined) {
+
+    if (isWinner) {
+        winner = temp;
         drawCell(res);
-        return;
     }
-    return;
 }
+
 
 function drawCell(cells) {
     for (let i = 0; i < cells.length; i++) {
