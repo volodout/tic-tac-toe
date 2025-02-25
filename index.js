@@ -7,6 +7,7 @@ let MAP = [
     [EMPTY, EMPTY, EMPTY]
 ];
 
+let winner
 let lastMove = ZERO
 
 const container = document.getElementById('fieldWrapper');
@@ -34,7 +35,7 @@ function renderGrid(dimension) {
 }
 
 function cellClickHandler(row, col) {
-    if (MAP[row][col] !== EMPTY){
+    if (MAP[row][col] !== EMPTY || winner !== undefined){
         return;
     }
 
@@ -88,6 +89,7 @@ function resetClickHandler() {
             renderSymbolInCell('', i, j, '#333')
         }
     }
+    winner = undefined;
     console.log('reset!');
 }
 
