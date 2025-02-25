@@ -6,6 +6,7 @@ let MAP = [
     [EMPTY, EMPTY, EMPTY],
     [EMPTY, EMPTY, EMPTY]
 ];
+
 let winner
 let lastMove = ZERO
 
@@ -34,19 +35,30 @@ function renderGrid(dimension) {
 }
 
 function cellClickHandler(row, col) {
-    if (lastMove === ZERO) {
-        renderSymbolInCell(CROSS, row, col);
-        lastMove = CROSS;
-    } else {
-        renderSymbolInCell(ZERO, row, col);
-        lastMove = ZERO;
+    if (MAP[row][col] !== EMPTY || winner !== undefined){
+        return;
     }
+
+    let player;
+    if (lastMove === ZERO) {
+        player = CROSS;
+    } else {
+        player = ZERO;
+    }
+
+    renderSymbolInCell(player, row, col);
+    MAP[row][col] = player;
+    lastMove = player;
     console.log(`Clicked on cell: ${row}, ${col}`);
     checkWinner()
-
-    /* Пользоваться методом для размещения символа в клетке так:
-        renderSymbolInCell(ZERO, row, col);
-     */
+    for (let i = 0; i < MAP.length; i++) {
+        for (let j = 0; j < MAP[i].length; j++) {
+            if (MAP[i][j] === EMPTY) {
+                return;
+            }
+        }
+    }
+    alert('Победила дружба')
 }
 
 function checkWinner() {
@@ -156,6 +168,17 @@ function addResetListener() {
 }
 
 function resetClickHandler() {
+    MAP = [
+        [EMPTY, EMPTY, EMPTY],
+        [EMPTY, EMPTY, EMPTY],
+        [EMPTY, EMPTY, EMPTY]
+    ];
+    for (let i = 0; i < MAP.length; i++) {
+        for (let j = 0; j < MAP[i].length; j++) {
+            renderSymbolInCell('', i, j, '#333')
+        }
+    }
+    winner = undefined;
     console.log('reset!');
 }
 
