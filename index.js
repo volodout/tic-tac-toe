@@ -115,7 +115,7 @@ function checkWinner() {
 
     let temp = MAP[0][0];
     let isWinner = true;
-    let res = [];
+    let res = [[0, 0]];
 
     for (let i = 1; i < MAP.length; i++) {
         if (MAP[i][i] !== temp || temp === EMPTY) {
@@ -133,7 +133,7 @@ function checkWinner() {
 
     temp = MAP[0][MAP.length - 1];
     isWinner = true;
-    res = [];
+    res = [[0, MAP.length - 1]];
 
     for (let i = 1; i < MAP.length; i++) {
         if (MAP[i][MAP.length - i - 1] !== temp || temp === EMPTY) {
