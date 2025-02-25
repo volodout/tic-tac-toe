@@ -1,7 +1,7 @@
 const CROSS = 'X';
 const ZERO = 'O';
 const EMPTY = ' ';
-const MAP = [
+let MAP = [
     [EMPTY, EMPTY, EMPTY],
     [EMPTY, EMPTY, EMPTY],
     [EMPTY, EMPTY, EMPTY]
@@ -78,6 +78,16 @@ function addResetListener() {
 }
 
 function resetClickHandler() {
+    MAP = [
+        [EMPTY, EMPTY, EMPTY],
+        [EMPTY, EMPTY, EMPTY],
+        [EMPTY, EMPTY, EMPTY]
+    ];
+    for (let i = 0; i < MAP.length; i++) {
+        for (let j = 0; j < MAP[i].length; j++) {
+            renderSymbolInCell('', i, j, '#333')
+        }
+    }
     console.log('reset!');
 }
 
