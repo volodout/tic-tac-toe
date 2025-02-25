@@ -51,6 +51,13 @@ function cellClickHandler(row, col) {
     lastMove = player;
     console.log(`Clicked on cell: ${row}, ${col}`);
     checkWinner()
+
+    if (winner !== undefined){
+        checkTie()
+    }
+}
+
+function checkTie(){
     for (let i = 0; i < MAP.length; i++) {
         for (let j = 0; j < MAP[i].length; j++) {
             if (MAP[i][j] === EMPTY) {
@@ -147,6 +154,7 @@ function drawCell(cells) {
     for (let i = 0; i < cells.length; i++) {
         renderSymbolInCell(winner, cells[i][0], cells[i][1], 'red');
     }
+    alert(winner)
 }
 
 
@@ -178,7 +186,8 @@ function resetClickHandler() {
             renderSymbolInCell('', i, j, '#333')
         }
     }
-    winner = undefined;
+    winner = undefined
+    lastMove = ZERO
     console.log('reset!');
 }
 
