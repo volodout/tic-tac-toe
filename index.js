@@ -50,10 +50,14 @@ function cellClickHandler(row, col) {
     lastMove = player;
     console.log(`Clicked on cell: ${row}, ${col}`);
 
-
-    /* Пользоваться методом для размещения символа в клетке так:
-        renderSymbolInCell(ZERO, row, col);
-     */
+    for (let i = 0; i < MAP.length; i++) {
+        for (let j = 0; j < MAP[i].length; j++) {
+            if (MAP[i][j] === EMPTY) {
+                return;
+            }
+        }
+    }
+    alert('Победила дружба')
 }
 
 function renderSymbolInCell(symbol, row, col, color = '#333') {
